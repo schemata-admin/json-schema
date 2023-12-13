@@ -1,0 +1,81 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/browsing/product_list_filtered",
+  "title" : "product_list_filtered",
+  "type" : "object",
+  "description" : "This event is triggered whenever a visitor filters a list or category of products on your website or app. The following properties are supported by this event",
+  "schema_type" : "UNKNOWN",
+  "status" : "Active",
+  "properties" : {
+    "list_id" : {
+      "type" : "string",
+      "description" : "Contains the name of the product list being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "category" : {
+      "type" : "string",
+      "description" : "Contains the category of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "filters" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/filter"
+      },
+      "description" : "Contain the product filters that the customer has applied",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "products" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "/schemas/product"
+      },
+      "description" : "Contains the array of products displayed in the product list",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    }
+  },
+  "definitions" : {
+    "filter" : {
+      "$schema" : "http://json-schema.org/draft-07/schema#",
+      "title" : "filter",
+      "type" : "object",
+      "description" : "Filter options",
+      "owner" : "Slack",
+      "schema_type" : "UNKNOWN",
+      "domain" : "Core",
+      "status" : "Active",
+      "subscribers" : [ "Customer Support Team" ],
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "description" : "Contains the ID of the filter type that the customer is using",
+          "is_pii" : "true",
+          "is_classified" : "false",
+          "deprecated" : "false"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "Contains the ID of the selection chosen by the customer",
+          "is_pii" : "true",
+          "is_classified" : "false",
+          "deprecated" : "false"
+        },
+        "id" : {
+          "type" : "integer",
+          "description" : "Primary Key of the Table",
+          "is_pii" : "true",
+          "is_classified" : "false",
+          "deprecated" : "false"
+        }
+      }
+    }
+  }
+}

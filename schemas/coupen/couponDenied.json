@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/coupon/coupon_denied",
+    "title": "coupon_denied",
+    "description": "This event is triggered whenever an invalid coupon code is applied to a cart or a transaction. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+        "order_id": {
+            "anyOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "string"
+                }
+            ],
+            "description": "Contains the order ID or the transaction ID, if applicable"
+        },
+        "cart_id": {
+            "anyOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "string"
+                }
+            ],
+            "description": "Contains the cart ID, if applicable"
+        },
+        "coupon_id": {
+            "type": "string",
+            "description": "Contains the cart ID"
+        },
+        "coupon_name": {
+            "type": "string",
+            "description": "Contains the name of the coupon"
+        },
+        "reason": {
+            "type": "string",
+            "description": "Contains the reason why the coupon was declined"
+        }
+    }
+}

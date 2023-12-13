@@ -1,0 +1,53 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/coupon/coupon_removed",
+  "title" : "coupon_removed",
+  "type" : "object",
+  "description" : "This event is triggered whenever a customer removes an already applied coupon from a cart or transaction. The following properties are supported by this event",
+  "owner" : "Team",
+  "schema_type" : "UNKNOWN",
+  "domain" : "Core",
+  "status" : "Active",
+  "compliance_owner" : "Vikram",
+  "subscribers" : [ "Sales Team" ],
+  "properties" : {
+    "order_id" : {
+      "anyOf" : [ {
+        "type" : "null"
+      }, {
+        "type" : "string"
+      } ],
+      "description" : "Contains the order ID or the transaction ID, if applicable",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "cart_id" : {
+      "anyOf" : [ {
+        "type" : "null"
+      }, {
+        "type" : "string"
+      } ],
+      "description" : "Contains the cart ID, if applicable",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "coupon_id" : {
+      "type" : "string",
+      "description" : "Contains the cart ID",
+      "is_pii" : "true",
+      "is_classified" : "true"
+    },
+    "coupon_name" : {
+      "type" : "string",
+      "description" : "Contains the name of the coupon",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "discount" : {
+      "type" : "string",
+      "description" : "Contains the amount of discount availed by applying the coupon",
+      "is_pii" : "true",
+      "is_classified" : "true"
+    }
+  }
+}

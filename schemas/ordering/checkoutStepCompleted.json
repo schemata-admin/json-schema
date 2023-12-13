@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/ordering/checkout_step_completed",
+    "title": "checkout_step_completed",
+    "description": "This event is triggered whenever a checkout step is completed. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+        "checkout_id": {
+            "type": "string",
+            "description": "Contains the checkout transaction ID"
+        },
+        "step": {
+            "type": "integer",
+            "description": "Contains the number associated with the checkout process step"
+        },
+        "shipping_method": {
+            "type": "string",
+            "description": "Contains the information associated with the chosen shipping method"
+        },
+        "payment_method": {
+            "type": "string",
+            "description": "Contains the payment method information"
+        }
+    }
+}

@@ -1,0 +1,119 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/wishlist/product_added_to_cart",
+  "title" : "product_added_to_cart",
+  "type" : "object",
+  "description" : "This event is triggered whenever a wishlisted product is added to the shopping cart by the customer. The following properties are supported by this event",
+  "owner" : "Ananth",
+  "schema_type" : "UNKNOWN",
+  "domain" : "Core",
+  "status" : "Active",
+  "quality_rule_base" : "(1 = 1)",
+  "properties" : {
+    "wishlist_id" : {
+      "type" : "string",
+      "description" : "Contains the wishlist ID to which the product was added",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "wishlist_name" : {
+      "type" : "string",
+      "description" : "Contains the name of the wishlist to which the product was added",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "product_id" : {
+      "type" : "string",
+      "description" : "Contains the database ID of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "sku" : {
+      "type" : "string",
+      "description" : "Contains the SKU of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "category" : {
+      "type" : "string",
+      "description" : "Contains the category of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "Contains the name of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "brand" : {
+      "type" : "string",
+      "description" : "Contains the name of the brand associated with the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "variant" : {
+      "type" : "string",
+      "description" : "Contains the name of the variant associated with the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "price" : {
+      "type" : "number",
+      "description" : "Contains the price of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "quantity" : {
+      "type" : "integer",
+      "description" : "Contains the quantity of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "coupon" : {
+      "type" : "string",
+      "description" : "Contains the coupon code associated with a product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "position" : {
+      "type" : "integer",
+      "description" : "Contains the position of the product in the product list",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "url" : {
+      "type" : "string",
+      "description" : "Contains the URL of the product page",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "image_url" : {
+      "type" : "string",
+      "description" : "Contains the image URL of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "category_name" : {
+      "type" : "string",
+      "description" : "Category",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    }
+  }
+}

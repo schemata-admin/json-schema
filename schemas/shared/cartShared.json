@@ -1,0 +1,31 @@
+{
+    "$id": "/schemas/cart_shared",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "cart_shared",
+    "description": "This event is triggered whenever a customer shares a shopping cart. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+      "share_via": {
+        "type": "string",
+        "description": "Contains information on the method of sharing the product"
+      },
+      "share_message": {
+        "type": "string",
+        "description": "Contains the message sent by the customer"
+      },
+      "recipient": {
+        "type": "string",
+        "description": "Contains information on the recipient with whom the product is shared"
+      },
+      "cart_id": {
+        "type": "string",
+        "description": "Contains the Database ID of the product"
+      },
+      "products": {
+        "type": "array",
+        "description": "Contains the array of products displayed in the product list",
+        "items": { "$ref": "/schemas/product" }
+      }
+    }
+  }
+  

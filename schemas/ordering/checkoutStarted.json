@@ -1,0 +1,76 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/ordering/checkout_started",
+  "title" : "checkout_started",
+  "type" : "object",
+  "description" : "This event is triggered whenever an order or transaction is initiated after the customer or visitor clicks on the checkout button. The following properties are supported by this event",
+  "owner" : "Core",
+  "schema_type" : "UNKNOWN",
+  "domain" : "E-commerce",
+  "status" : "Active",
+  "properties" : {
+    "order_id" : {
+      "type" : "string",
+      "description" : "Contains the order ID or transaction ID, whichever is applicable",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "affiliation" : {
+      "type" : "string",
+      "description" : "Contains the store or affiliation details from where the transaction was started",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "value" : {
+      "type" : "integer",
+      "description" : "Contains the details of the revenue with the discount and coupons factored in",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "revenue" : {
+      "type" : "number",
+      "description" : "Contains the revenue associated with the transaction, excluding the shipping and tax details",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "shipping" : {
+      "type" : "integer",
+      "description" : "Contains the shipping cost associated with the order or transaction",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "tax" : {
+      "type" : "integer",
+      "description" : "Contains the total tax associated with the order or the transaction",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "discount" : {
+      "type" : "number",
+      "description" : "Contains the total discount associated with the transaction",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "coupon" : {
+      "type" : "string",
+      "description" : "Contains details of the transaction coupon which can be redeemed with the transaction",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "currency" : {
+      "type" : "string",
+      "description" : "Contains the currency code associated with an order or transaction",
+      "is_pii" : "false",
+      "is_classified" : "false"
+    },
+    "products" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "/schemas/product"
+      },
+      "description" : "Contains the array of products displayed in the product list",
+      "is_pii" : "true",
+      "is_classified" : "true"
+    }
+  }
+}

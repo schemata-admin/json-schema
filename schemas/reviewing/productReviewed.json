@@ -1,0 +1,29 @@
+{
+  "$id": "/schemas/reviewing/promotion_reviewed",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "promotion_reviewed",
+  "description": "This event is triggered whenever a customer reviews a product. The following properties are supported by this event",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "description": "Contains the ID of the product being reviewed"
+    },
+    "review_id": {
+      "type": "string",
+      "description": "Contains the unique ID of the review being posted by the customer"
+    },
+    "review_body": {
+      "type": "string",
+      "description": "Contains the body or the content of the review posted by the customer"
+    },
+    "rating": {
+      "type": "integer",
+      "description": "Contains the rating of the product added by the customer in the review"
+    },
+    "author": {
+      "type": "string",
+      "description": "Contains the author name"
+    }
+  }
+}

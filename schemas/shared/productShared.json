@@ -1,0 +1,98 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/shared/product_shared",
+  "title" : "product_shared",
+  "type" : "object",
+  "description" : "This event is triggered whenever a customer shares a product. The following properties are supported by this event",
+  "owner" : "Slack",
+  "schema_type" : "UNKNOWN",
+  "domain" : "Core",
+  "status" : "Active",
+  "subscribers" : [ "Marketing Team" ],
+  "properties" : {
+    "share_via" : {
+      "type" : "string",
+      "description" : "Contains information on the method of sharing the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "share_message" : {
+      "type" : "string",
+      "description" : "Contains the message sent by the customer",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "recipient" : {
+      "type" : "string",
+      "description" : "Contains information on the recipient with whom the product is shared",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "product_id" : {
+      "type" : "string",
+      "description" : "Contains the Database ID of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "sku" : {
+      "type" : "string",
+      "description" : "Contains the SKU of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "category" : {
+      "type" : "string",
+      "description" : "Contains the category of the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "Contains the name of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "brand" : {
+      "type" : "string",
+      "description" : "Contains the name of the brand associated with the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "variant" : {
+      "type" : "string",
+      "description" : "Contains the name of the variant associated with the product",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "price" : {
+      "type" : "number",
+      "description" : "Contains the price of the product being viewed",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "url" : {
+      "type" : "string",
+      "description" : "Contains the URL of the product page",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "image_url" : {
+      "type" : "string",
+      "description" : "Contains the image URL of the product",
+      "is_pii" : "true",
+      "is_classified" : "true",
+      "deprecated" : "true"
+    }
+  }
+}

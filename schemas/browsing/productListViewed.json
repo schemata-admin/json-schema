@@ -1,0 +1,23 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/browsing/product_list_viewed",
+    "title": "Product_list_viewed",
+    "description": "This event is triggered whenever a visitor views a list or category of products on your website or app. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+        "list_id": {
+            "type": "string",
+            "description": "Contains the name of the product list being viewed"
+        },
+        "category": {
+            "type": "string",
+            "description": "Contains the category of the product being viewed"
+        },
+        "products": {
+            "type": "array",
+            "description": "Contains the array of products displayed in the product list",
+            "is_pii" : "true",
+            "items": { "$ref": "/schemas/product" }
+        }
+    }
+}

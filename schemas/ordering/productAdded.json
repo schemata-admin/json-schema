@@ -1,0 +1,62 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/ordering/product_added",
+    "title": "product_added",
+    "description": "This event is triggered whenever a visitor/customer adds a product to their shopping cart. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+      "cart_id": {
+        "type": "string",
+        "description": "Contains the cart ID of the cart to which the product was added"
+      },
+      "product_id": {
+        "type": "string",
+        "description": "Contains the database ID of the product being viewed"
+      },
+      "sku": {
+        "type": "string",
+        "description": "Contains the SKU of the product"
+      },
+      "category": {
+        "type": "string",
+        "description": "Contains the category of the product"
+      },
+      "name": {
+        "type": "string",
+        "description": "Contains the name of the product being viewed"
+      },
+      "brand": {
+        "type": "string",
+        "description": "Contains the name of the brand associated with the product"
+      },
+      "variant": {
+        "type": "string",
+        "description": "Contains the name of the variant associated with the product"
+      },
+      "price": {
+        "type": "number",
+        "description": "Contains the price of the product being viewed"
+      },
+      "quantity": {
+        "type": "integer",
+        "description": "Contains the quantity of the product"
+      },
+      "coupon": {
+        "type": "string",
+        "description": "Contains the coupon code associated with a product"
+      },
+      "position": {
+        "type": "integer",
+        "description": "Contains the position of the product in the product list"
+      },
+      "url": {
+        "type": "string",
+        "description": "Contains the URL of the product page"
+      },
+      "image_url": {
+        "type": "string",
+        "description": "Contains the image URL of the product"
+      }
+    }
+}
+  

@@ -1,0 +1,43 @@
+{
+  "$schema" : "http://json-schema.org/draft-07/schema#",
+  "$id" : "/schemas/coupon/coupon_entered",
+  "title" : "coupon_entered",
+  "type" : "object",
+  "description" : "This event is triggered whenever a coupon is entered by the customer, either on a cart or during the order/transaction. The following properties are supported by this event",
+  "owner" : "Core",
+  "schema_type" : "UNKNOWN",
+  "domain" : "#team_coupon",
+  "status" : "Active",
+  "subscribers" : [ "Sales Team", "Marketing Team" ],
+  "properties" : {
+    "order_id" : {
+      "anyOf" : [ {
+        "type" : "null"
+      }, {
+        "type" : "string"
+      } ],
+      "description" : "Contains the order ID or the transaction ID, if applicable",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    },
+    "coupon_id" : {
+      "type" : "string",
+      "description" : "Contains the cart ID",
+      "is_pii" : "true",
+      "is_classified" : "true",
+      "deprecated" : "false"
+    },
+    "cart_id" : {
+      "anyOf" : [ {
+        "type" : "string"
+      }, {
+        "type" : "null"
+      } ],
+      "description" : "Contains the cart ID, if applicable",
+      "is_pii" : "false",
+      "is_classified" : "false",
+      "deprecated" : "false"
+    }
+  }
+}

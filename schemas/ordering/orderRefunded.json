@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/ordering/order_refunded",
+    "title": "order_refunded",
+    "description": "This event is triggered whenever an order is refunded. You must include all items in the cart as Order Refunded event’s properties, with the same properties as the Order Completed event",
+    "type": "object",
+    "properties": {
+        "order_id": {
+        "type": "string",
+        "description": "Contains the order ID or transaction ID"
+        }
+    }
+}
+  

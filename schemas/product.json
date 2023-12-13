@@ -1,0 +1,57 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/product",
+    "title": "product",
+    "description": "Contains the details of the product",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "Contains the product ID displayed on the list"
+        },
+        "sku": {
+            "type": "string",
+            "description": "Contains the SKU (Stock Keeping Unit) of the product being viewed"
+        },
+        "category": {
+            "type": "string",
+            "description": "Contains the category of the product being viewed"
+        },
+        "name": {
+            "type": "string",
+            "description": "Contains the name of the product being viewed"
+        },
+        "brand": {
+            "type": "string",
+            "description": "Contains the name of the brand associated with the product"
+        },
+        "variant": {
+            "type": "string",
+            "description": "Contains the name of the variant of the product"
+        },
+        "price": {
+            "type": "number",
+            "description": "Contains the price of the product being viewed (in USD)"
+        },
+        "quantity": {
+            "type": "integer",
+            "description": "Contains the quantity of the product"
+        },
+        "coupon": {
+            "type": "string",
+            "description": "Contains the coupon code associated with a product"
+        },
+        "position": {
+            "type": "integer",
+            "description": "Contains the position of the product in the product list"
+        },
+        "url": {
+            "type": "string",
+            "description": "Contains the URL of the product page"
+        },
+        "image_url": {
+            "type": "string",
+            "description": "Contains the image URL of the product"
+        }
+    }
+}

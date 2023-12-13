@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/ordering/order_completed",
+    "title": "order_completed",
+    "description": "This event is triggered whenever an order is completed successfully. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+        "checkout_id": {
+            "type": "string",
+            "description": "Contains the checkout ID"
+        },
+        "order_id": {
+            "type": "string",
+            "description": "Contains the order ID or transaction ID, whichever is applicable"
+        },
+        "affiliation": {
+            "type": "string",
+            "description": "Contains the store or affiliation details from where the transaction was started"
+        },
+        "sub_total": {
+            "type": "integer",
+            "description": "Contains the order total after discounts but not including the taxes and shipping charges"
+        },
+        "total": {
+            "type": "integer",
+            "description": "Contains the details of the revenue with the discount and coupons factored in"
+        },
+        "revenue": {
+            "type": "number",
+            "description": "Contains the revenue associated with the transaction, excluding the shipping and tax details"
+        },
+        "shipping": {
+            "type": "integer",
+            "description": "Contains the shipping cost associated with the order or transaction"
+        },
+        "tax": {
+            "type": "integer",
+            "description": "Contains the total tax associated with the order or the transaction"
+        },
+        "discount": {
+            "type": "number",
+            "description": "Contains the total discount associated with the transaction"
+        },
+        "coupen": {
+            "type": "string",
+            "description": "Contains details of the transaction coupon which can be redeemed with the transaction"
+        },
+        "currency": {
+            "type": "string",
+            "description": "Contains the currency code associated with an order or transaction"
+        },
+        "products": {
+            "type": "array",
+            "description": "Contains the array of products displayed in the product list",
+            "items": { "$ref": "/schemas/product" }
+        }
+    }
+}

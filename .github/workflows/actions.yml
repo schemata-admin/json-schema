@@ -1,0 +1,167 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+name: "SchemataLabs"
+# run once in 24 hours or pull event to main
+on:
+  #  push:
+  #    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    types: [opened, closed, merged, reopened, synchronize]
+    # schedule:
+    # - cron: "0 0 * * *"
+jobs:
+  performing-schema-compatibility-check:
+    if: github.event.pull_request.merged == false
+    name: Performing Schema compatibility check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/*.json
+      #            **/*.proto
+      #            **/*.avsc
+      #            **/*.yml
+      - name: Get Authentication
+        id: get-access-token
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          OUTPUT=`curl --http1.1  --request GET --url 'https://api.schematalabs.com/user/v1/auth/github-token' --header 'content-Type: application/json'`
+          TOKEN=`echo ${OUTPUT} | jq -r .entity.token.accessToken`
+          echo ${TOKEN}
+          STATUS=`echo ${OUTPUT} | jq -r .status`
+          echo ${STATUS}
+          echo "TOKEN=$TOKEN" >> $GITHUB_OUTPUT
+
+      - name: Validate changed files
+        id: validate-schema
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          OUTPUT=`curl --http1.1  --request PUT --url 'https://api.schematalabs.com/connect/v1/github/validate-schema' --header 'authorization: Bearer ${{ steps.get-access-token.outputs.TOKEN }}' --header 'content-Type: application/json' --data-raw '{ "prName": "${{ github.event.pull_request.title }}", "prNumber":  "${{github.event.pull_request.number}}", "repoName": "${{ github.event.pull_request.base.repo.full_name }}" , "sourceBranch": "${{ github.event.pull_request.head.ref }}", "targetBranch": "${{ github.event.pull_request.base.ref }}", "status": "${{github.event.pull_request.state}}", "raisedBy": "${{github.event.pull_request.user.login}}", "filesChanged": "${{ steps.changed-files-specific.outputs.all_changed_files }}"}'`
+          STATUS=`echo ${OUTPUT} | jq -r .status`
+          ERRMSG=`echo ${OUTPUT} | jq -r .message`
+          VALIDATION_STATUS=`echo ${OUTPUT} | jq -r .entity.status`
+          VALIDATION_MSG=`echo ${OUTPUT} | jq -r .entity.message`          
+          
+          if [[ ${STATUS} != "SUCCESS" ]]
+          then
+            echo "$ERRMSG"
+            exit 500
+          else
+            if [[ ${VALIDATION_STATUS} != true ]]
+            then            
+              echo "Schema change validation failure. Reason: $VALIDATION_MSG"
+              exit 500
+            else
+              echo "Schema change validation : $VALIDATION_MSG"
+            fi
+          fi
+
+      - name: Computing the Schemata Score to measure the schema connectivity
+        id: compute-score
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          CODE=`curl --http1.1  --request PUT --url 'https://api.schematalabs.com/connect/v1/github/compute-score' --header 'authorization: Bearer ${{ steps.get-access-token.outputs.TOKEN }}' --header 'content-Type: application/json' --data-raw '{ "prName": "${{ github.event.pull_request.title }}", "prNumber":  "${{github.event.pull_request.number}}", "repoName": "${{ github.event.pull_request.base.repo.full_name }}" , "sourceBranch": "${{ github.event.pull_request.head.ref }}", "targetBranch": "${{ github.event.pull_request.base.ref }}", "sha": "${{ github.event.pull_request.head.sha }}", "status": "${{github.event.pull_request.state}}", "raisedBy": "${{github.event.pull_request.user.login}}", "filesChanged": "${{ steps.changed-files-specific.outputs.all_changed_files }}"}'`
+          echo ${CODE}
+          STATUS=`echo ${CODE} | jq -r .status`
+          ERRMSG=`echo ${CODE} | jq -r .message`
+          ISMERGE=`echo ${CODE} | jq -r .entity.isMerge`
+          TABLES=`echo ${CODE} | jq -r .entity.tables`  
+          echo ${TABLES}
+          echo "ISMERGE=$ISMERGE" >> $GITHUB_OUTPUT
+          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
+          echo "ERRMSG=$ERRMSG" >> $GITHUB_OUTPUT
+      #          echo "{name}={value}::$TABLES" >> $GITHUB_OUTPUT
+      #          echo "TABLES=${TABLES}" >> $GITHUB_OUTPUT
+
+      - name: Checking for errors from Schemata
+        id: check-for-error
+        if: steps.compute-score.outputs.STATUS != 'SUCCESS'
+        run: |
+          echo "Ouch; the Schema check throws an error"
+          echo ${{ steps.score-compute.outputs.STATUS }}
+          echo ${{ steps.score-compute.outputs.ERRMSG }}
+          exit 500
+
+      - name: Gathering results from Schemata
+        id: merge-if-true
+        if: steps.compute-score.outputs.ISMERGE == 'true'
+        run: |
+          echo "All Done; Schema changes are good to merge."
+          exit 0
+
+      - name: Checking for errors from Schemata
+        id: error-if-false
+        if: steps.compute-score.outputs.ISMERGE == 'false'
+        run: |
+          echo "Ouch; the Schema check throws an error"
+          echo ${{ steps.score-compute.outputs.TABLES }}
+          echo "FAILURE"
+          exit 500
+
+  merge-compatible-schema-changes:
+    if: github.event.pull_request.merged == true
+    name: Merge compatible schema changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR repo
+        uses: actions/checkout@v3
+        with:
+          #          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.ref }}
+      - name: Get changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/*.json
+      #            **/*.avro
+      #            **/*.proto
+      #            **/*.json
+      #            **/*.yml
+
+      - name: Get Authentication
+        id: get-access-token
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          OUTPUT=`curl --http1.1  --request GET --url 'https://api.schematalabs.com/user/v1/auth/github-token' --header 'content-Type: application/json'`
+          TOKEN=`echo ${OUTPUT} | jq -r .entity.token.accessToken`
+          echo ${TOKEN}
+          STATUS=`echo ${OUTPUT} | jq -r .status`
+          echo ${STATUS}
+          echo "TOKEN=$TOKEN" >> $GITHUB_OUTPUT
+          
+      - name: Get schemata score for changed files
+        id: compute-score
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          CODE=`curl --http1.1  --request PUT --url 'https://api.schematalabs.com/connect/v1/github/compute-score' --header 'authorization: Bearer ${{ steps.get-access-token.outputs.TOKEN }}' --header 'content-Type: application/json' --data-raw '{ "prName": "${{ github.event.pull_request.title }}", "prNumber":  "${{github.event.pull_request.number}}", "repoName": "${{ github.event.pull_request.base.repo.full_name }}" , "sourceBranch": "${{ github.event.pull_request.head.ref }}", "targetBranch": "${{ github.event.pull_request.base.ref }}", "sha": "${{ github.event.pull_request.head.sha }}", "status": "merged", "raisedBy": "${{github.event.pull_request.user.login}}", "filesChanged": "${{ steps.changed-files-specific.outputs.all_changed_files }}"}'`
+          echo ${CODE}
+          STATUS=`echo ${CODE} | jq -r .status`
+          ERRMSG=`echo ${CODE} | jq -r .message`
+          echo "STATUS=$STATUS" >> $GITHUB_OUTPUT
+          echo "ERRMSG=$ERRMSG" >> $GITHUB_OUTPUT
+
+      - name: Checking for errors from Schemata
+        id: check-for-error
+        if: steps.compute-score.outputs.STATUS != 'SUCCESS'
+        run: |
+          echo "Ouch; the Schema check throws an error"
+          echo ${{ steps.score-compute.outputs.STATUS }}
+          echo ${{ steps.score-compute.outputs.ERRMSG }}
+          exit 500
+
+      - name: Gathering results from Schemata
+        id: merge-if-true
+        if: steps.compute-score.outputs.STATUS == 'SUCCESS'
+        run: |
+          echo "All Done; Schema changes are good to merge."
+          exit 0

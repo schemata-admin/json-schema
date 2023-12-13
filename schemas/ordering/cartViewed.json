@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "/schemas/ordering/cart_viewed",
+    "title": "cart_viewed",
+    "description": "This event is triggered whenever a visitor or customer views their shopping cart. The following properties are supported by this event",
+    "type": "object",
+    "properties": {
+        "cart_id": {
+            "type": "string",
+            "description": "Contains the cart ID of the cart to which the product was added"
+        },
+        "products": {
+            "type": "array",
+            "items": { "$ref": "/schemas/product" }
+        }
+    }
+}
