@@ -53,6 +53,7 @@
       "domain" : "Core",
       "status" : "Active",
       "subscribers" : [ "Customer Support Team" ],
+      "quality_rule_base" : "(1 = 1)",
       "properties" : {
         "type" : {
           "type" : "string",
@@ -72,7 +73,7 @@
           "type" : "integer",
           "description" : "Primary Key of the Table",
           "is_pii" : "true",
-          "is_classified" : "false",
+          "is_classified" : "true",
           "deprecated" : "false"
         }
       }
